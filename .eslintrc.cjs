@@ -57,6 +57,8 @@ module.exports = {
       settings: {
         "import/internal-regex": "^~/",
         "import/resolver": {
+          map: [["@", "./app"]],
+          extensions: [".ts", ".js", ".jsx", ".json"],
           node: {
             extensions: [".ts", ".tsx"],
           },
