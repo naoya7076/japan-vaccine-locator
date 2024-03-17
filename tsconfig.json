@@ -3,7 +3,7 @@
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": [
-      // "@remix-run/cloudflare",
+      //TODO:修正する "@remix-run/cloudflare",
        "node",
         "vite/client"
       ],
