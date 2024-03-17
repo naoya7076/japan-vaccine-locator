@@ -1,6 +1,5 @@
 .cache
 .database
-.wrangler
 .DS_Store
 .env
 *.log
