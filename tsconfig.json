@@ -2,11 +2,7 @@
   "include": ["**/*.ts", "**/*.tsx", "server.js"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": [
-      //TODO:修正する "@remix-run/cloudflare",
-       "node",
-        "vite/client"
-      ],
+    "types": ["@remix-run/cloudflare","node","vite/client"],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
