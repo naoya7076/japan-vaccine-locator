@@ -26,6 +26,7 @@ const Hospitals = () => {
 					name={hospital.name}
 					postal_code={hospital.postal_code}
 					address={hospital.address}
+					vaccines={hospital.vaccines.map((vaccine) => vaccine.name)}
 				/>
 			))}
 		</>

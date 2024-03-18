@@ -1,8 +1,15 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+	Card,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+	CardContent,
+} from "@/components/ui/card";
 type HospitalProps = {
 	name: string;
 	postal_code: string;
 	address: string;
+	vaccines: string[];
 };
 export const Hospital = (props: HospitalProps) => {
 	return (
@@ -13,7 +20,7 @@ export const Hospital = (props: HospitalProps) => {
 				</CardHeader>
 				<CardContent>
 					<div>
-						{/* <CardDescription>{props.address}</CardDescription> */}
+						<CardDescription>{props.vaccines.join(", ")}</CardDescription>
 						<div className="mt-4">
 							<div className="flex justify-between">
 								<div>
