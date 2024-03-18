@@ -5,11 +5,12 @@ import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const response = new Response();
-	const { data } = await supabaseClient(request, response)
+	const { data: hospitals } = await supabaseClient(request, response)
 		.from("hospitals")
-		.select("*");
+		.select("id, name, postal_code, address, vaccines(name)");
+
 	return json(
-		{ hospitals: data },
+		{ hospitals },
 		{
 			headers: response.headers,
 		},
