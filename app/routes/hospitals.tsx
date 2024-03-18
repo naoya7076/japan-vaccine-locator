@@ -1,22 +1,33 @@
 import { Hospital } from "@/components/hospital";
+import { json } from "@remix-run/cloudflare";
+import { createServerClient } from "@supabase/auth-helpers-remix";
+import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+	const response = new Response();
+	const supabaseUrl = process.env.SUPABASE_URL;
+	const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+	if (!supabaseUrl || !supabaseAnonKey) {
+		throw new Error("Supabase URL or Supabase Anon Key is missing.");
+	}
+	const supabaseClient = createServerClient(supabaseUrl, supabaseAnonKey, {
+		request,
+		response,
+	});
+
+	const { data } = await supabaseClient.from("hospitals").select("*");
+	return json(
+		{ hospitals: data },
+		{
+			headers: response.headers,
+		},
+	);
+};
 const Hospitals = () => {
-	const hospitals = [
-		{
-			id: 1,
-			name: "医療法人つとむ会 澤田内科医院",
-			postal_code: "530-0001",
-			address: "大阪府大阪市北区梅田１―２―２―２００",
-		},
-		{
-			id: 2,
-			name: "医療法人渡辺医学会桜橋渡辺病院",
-			postal_code: "530-0001",
-			address: "大阪府大阪市北区梅田２―４―３２",
-		},
-	];
+	const { hospitals } = useLoaderData<typeof loader>();
 	return (
 		<>
-			{hospitals.map((hospital) => (
+			{hospitals?.map((hospital) => (
 				<Hospital
 					key={hospital.id}
 					name={hospital.name}
