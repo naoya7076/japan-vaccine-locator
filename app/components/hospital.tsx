@@ -1,10 +1,4 @@
-import {
-	Card,
-	CardHeader,
-	CardTitle,
-	CardContent,
-	CardDescription,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 type HospitalProps = {
 	name: string;
 	postal_code: string;
