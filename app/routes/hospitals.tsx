@@ -1,21 +1,13 @@
 import { Hospital } from "@/components/hospital";
 import { json } from "@remix-run/cloudflare";
-import { createServerClient } from "@supabase/auth-helpers-remix";
+import { supabaseClient } from "@/lib/supabase";
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const response = new Response();
-	const supabaseUrl = process.env.SUPABASE_URL;
-	const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
-	if (!supabaseUrl || !supabaseAnonKey) {
-		throw new Error("Supabase URL or Supabase Anon Key is missing.");
-	}
-	const supabaseClient = createServerClient(supabaseUrl, supabaseAnonKey, {
-		request,
-		response,
-	});
-
-	const { data } = await supabaseClient.from("hospitals").select("*");
+	const { data } = await supabaseClient(request, response)
+		.from("hospitals")
+		.select("*");
 	return json(
 		{ hospitals: data },
 		{
