@@ -8,13 +8,13 @@ import { PaginationWrapper } from "@/components/pagination-wrapper";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const url = new URL(request.url);
 	const page = parseInt(url.searchParams.get("page") || "1");
-	const limit = 2;
+	const itemsPerPage = 2;
+	const start = (page - 1) * itemsPerPage;
 	const response = new Response();
 	const { data: hospitals } = await supabaseClient(request, response)
 		.from("hospitals")
 		.select("id, name, postal_code, address, vaccines(name)")
-		.limit(limit)
-		.range(page, page + limit - 1);
+		.range(start, start + itemsPerPage - 1);
 
 	return json(
 		{ hospitals, page },
